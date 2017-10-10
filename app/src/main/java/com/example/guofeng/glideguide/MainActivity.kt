@@ -48,9 +48,6 @@ class MainActivity : AppCompatActivity() {
                             matrix.postScale(scaleX, scaleX)
                             val bitmap = Bitmap.createBitmap(resource, 0, 0, resource.width, resource.height, matrix, false)
                             imageView.setImageBitmap(bitmap)
-                            if (!resource.isRecycled) {
-                                resource.recycle()
-                            }
                         }
                     })
         }
