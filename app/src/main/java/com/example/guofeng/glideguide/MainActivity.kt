@@ -25,8 +25,12 @@ class MainActivity : AppCompatActivity() {
         load.setOnClickListener {
             GlideApp.with(this)
                     .load(url)
+                    // 占位符。请求时显示，如果请求失败、或请求的url/model为null并且没有设置error和fallback,则占位符将被持续显示。
                     .placeholder(R.mipmap.ic_launcher)
+                    // 错误符。 在请求永久失败时显示。同样也会在请求的url/model为null,并且没有设置fallback 时显示。
                     .error(R.mipmap.ic_launcher_foreground)
+                    // 后备回调符。在请求的url/model为null时显示。null也可能表示这个原数据根本就是不合法的，或者取不到的。
+                    .fallback(R.mipmap.ic_launcher_round)
                     .into(imageView)
 
 
@@ -66,6 +70,13 @@ class MainActivity : AppCompatActivity() {
                     })
                     .into(imageView)
         }
+        extension_load.setOnClickListener {
+            GlideApp.with(this)
+                    .load(url)
+                    .miniThumb()
+                    .into(imageView)
+        }
+
     }
 
 }
