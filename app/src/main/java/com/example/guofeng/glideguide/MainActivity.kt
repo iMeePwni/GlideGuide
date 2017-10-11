@@ -18,6 +18,7 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.example.guofeng.glideguide.app.GlideApp
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         load.setOnClickListener {
             GlideApp.with(this)
                     .load(url)
+                    // 从性能考虑禁用交叉淡入好，但会导致占位符存在在请求到图片后面。
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     // 占位符。请求时显示，如果请求失败、或请求的url/model为null并且没有设置error和fallback,则占位符将被持续显示。
                     .placeholder(R.mipmap.ic_launcher)
                     // 错误符。 在请求永久失败时显示。同样也会在请求的url/model为null,并且没有设置fallback 时显示。
@@ -88,13 +91,26 @@ class MainActivity : AppCompatActivity() {
                     .apply(RequestOptions.circleCropTransform())
                     .into(imageView)
         }
+        var target: Target<Drawable> by Delegates.notNull<Target<Drawable>>()
         transform_load.setOnClickListener {
-            GlideApp.with(this)
+            target = GlideApp.with(this)
                     .load(url)
                     // 不同于RequestOptions，TransitionOptions是特定资源类型独有的，
                     // 你能使用的变换取决于你让Glide加载哪种类型的资源。
+                    /*
+                    在Glide中，图像可能从四个地方中的任何一个位置加载出来：
+                    1）Glide 的内存缓存
+                    2）Glide 的磁盘缓存
+                    3) 设备本地可用的一个源文件或Uri
+                    4) 仅远程可用的一个源Url或Uri
+                    如果图像从Glide的内存缓存中加载出来，Glide的内置过渡将不会执行。
+                    然而，在另外三种场景下，Glide的内置过渡都会被执行。
+                     */
                     .transition(DrawableTransitionOptions.withCrossFade(1000))
                     .into(imageView)
+        }
+        cancel_target.setOnClickListener {
+            Glide.with(this).clear(target)
         }
     }
 
