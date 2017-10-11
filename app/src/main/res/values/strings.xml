@@ -4,4 +4,6 @@
     <string name="custom_load">自定义加载</string>
     <string name="listener_load">监听器加载</string>
     <string name="extension_load">扩展选项加载</string>
+    <string name="request_load">请求选项加载</string>
+    <string name="transform_load">变换加载</string>
 </resources>
