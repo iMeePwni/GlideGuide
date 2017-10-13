@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -48,6 +49,14 @@ class MainActivity : AppCompatActivity() {
             GlideApp.with(this)
                     .asBitmap()
                     .load(url)
+                    /* 磁盘缓存策略 默认是DiskCacheStrategy.AUTOMATIC
+                       它会尝试对本地和远程图片使用最佳的策略。当加载远程数据时，仅存储无修改的原生数据；
+                       当加载本地数据时，仅存储变换过的错略图文件。*/
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    // 设置为true意味着，图片只从缓存中加载，如果没有就直接失败（比如：省流量模式？？？）。
+                    .onlyRetrieveFromCache(false)
+                    // 仅跳过内存缓存（比如：图片验证码）
+                    .skipMemoryCache(false)
                     .into(object : SimpleTarget<Bitmap>() {
                         override fun onResourceReady(resource: Bitmap?, transition: Transition<in Bitmap>?) {
                             if (resource == null)
@@ -111,6 +120,14 @@ class MainActivity : AppCompatActivity() {
         }
         cancel_target.setOnClickListener {
             Glide.with(this).clear(target)
+        }
+        clear_memory_cache.setOnClickListener {
+            GlideApp.get(this).clearMemory()
+        }
+        clear_disk_cache.setOnClickListener {
+            Thread {
+                GlideApp.get(this).clearDiskCache()
+            }.start()
         }
     }
 

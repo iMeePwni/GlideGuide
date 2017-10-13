@@ -107,4 +107,28 @@
         app:layout_constraintStart_toEndOf="@+id/transform_load"
         app:layout_constraintTop_toBottomOf="@+id/extension_load" />
 
+    <Button
+        android:id="@+id/clear_memory_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/clear_memory_cache"
+        app:layout_constraintEnd_toStartOf="@+id/clear_disk_cache"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transform_load" />
+
+    <Button
+        android:id="@+id/clear_disk_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/clear_disk_cache"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/clear_memory_cache"
+        app:layout_constraintTop_toBottomOf="@+id/cancel_target" />
+
 </android.support.constraint.ConstraintLayout>

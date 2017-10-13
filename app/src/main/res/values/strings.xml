@@ -7,4 +7,6 @@
     <string name="request_load">请求选项加载</string>
     <string name="transform_load">变换加载</string>
     <string name="cancel_target">取消目标</string>
+    <string name="clear_memory_cache">清理内存缓存</string>
+    <string name="clear_disk_cache">清理磁盘缓存</string>
 </resources>
