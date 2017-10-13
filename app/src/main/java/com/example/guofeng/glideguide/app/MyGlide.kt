@@ -9,12 +9,15 @@ import com.bumptech.glide.Registry
 import com.bumptech.glide.annotation.GlideExtension
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.annotation.GlideOption
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory
 import com.bumptech.glide.load.engine.cache.LruResourceCache
+import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
 import com.example.guofeng.glideguide.R
+import java.io.InputStream
 
 /**
  * Created by guofeng on 2017/10/8.
@@ -35,7 +38,7 @@ class Module : AppGlideModule() {
         // 设置内存缓存
         builder.setMemoryCache(LruResourceCache(20 * 1024 * 1024))
         // 设置磁盘缓存
-        builder.setDiskCache(ExternalCacheDiskCacheFactory(context, context.getString(R.string.app_name),100 * 1024 * 1024))
+        builder.setDiskCache(ExternalCacheDiskCacheFactory(context, context.getString(R.string.app_name), 100 * 1024 * 1024))
         // 设置默认请求选项
         builder.setDefaultRequestOptions(RequestOptions().format(DecodeFormat.PREFER_RGB_565))
         // 未捕获一场策略（UncaughtThrowableStrategy）
@@ -43,9 +46,10 @@ class Module : AppGlideModule() {
         builder.setLogLevel(Log.VERBOSE)
     }
 
-    override fun registerComponents(context: Context?, glide: Glide?, registry: Registry?) {
-        super.registerComponents(context, glide, registry)
+    override fun registerComponents(context: Context, glide: Glide?, registry: Registry) {
+        registry.replace(GlideUrl::class.java, InputStream::class.java, OkHttpUrlLoader.Factory())
     }
+
     // 完全禁用清单解析，可以改善Glide的初始启动时间，并避免尝试解析元数据时的一些潜在问题。
     override fun isManifestParsingEnabled(): Boolean {
         return false
