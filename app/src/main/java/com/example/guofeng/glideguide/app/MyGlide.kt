@@ -2,6 +2,7 @@ package com.example.guofeng.glideguide.app
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.GlideBuilder
 import com.bumptech.glide.Registry
@@ -38,6 +39,8 @@ class Module : AppGlideModule() {
         // 设置默认请求选项
         builder.setDefaultRequestOptions(RequestOptions().format(DecodeFormat.PREFER_RGB_565))
         // 未捕获一场策略（UncaughtThrowableStrategy）
+        // 设置日志级别
+        builder.setLogLevel(Log.VERBOSE)
     }
 
     override fun registerComponents(context: Context?, glide: Glide?, registry: Registry?) {

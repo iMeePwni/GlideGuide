@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         listener_load.setOnClickListener {
             GlideApp.with(this)
                     .load(url)
+                    // 请求监听器
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                             return false
