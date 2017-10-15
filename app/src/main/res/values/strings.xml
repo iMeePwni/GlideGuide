@@ -9,4 +9,5 @@
     <string name="cancel_target">取消目标</string>
     <string name="clear_memory_cache">清理内存缓存</string>
     <string name="clear_disk_cache">清理磁盘缓存</string>
+    <string name="start_recycler_activity">启动可利用列表活动</string>>
 </resources>

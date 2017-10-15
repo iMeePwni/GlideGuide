@@ -1,5 +1,6 @@
 package com.example.guofeng.glideguide
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.drawable.Drawable
@@ -129,6 +130,9 @@ class MainActivity : AppCompatActivity() {
             Thread {
                 GlideApp.get(this).clearDiskCache()
             }.start()
+        }
+        start_recycler_activity.setOnClickListener {
+            startActivity(Intent(this, RecyclerViewActivity::class.java))
         }
     }
 

@@ -36,7 +36,7 @@ import java.io.InputStream
 class Module : AppGlideModule() {
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         // 设置内存缓存
-        builder.setMemoryCache(LruResourceCache(20 * 1024 * 1024))
+        builder.setMemoryCache(LruResourceCache(50 * 1024 * 1024))
         // 设置磁盘缓存
         builder.setDiskCache(ExternalCacheDiskCacheFactory(context, context.getString(R.string.app_name), 100 * 1024 * 1024))
         // 设置默认请求选项
